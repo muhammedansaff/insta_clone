@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insta_clone/resources/auth_method.dart';
+import 'package:insta_clone/responsive/mobileScreenLayout.dart';
+import 'package:insta_clone/responsive/responsive.dart';
+import 'package:insta_clone/responsive/webScreenLayout.dart';
 import 'package:insta_clone/screens/home_screen.dart';
 import 'package:insta_clone/screens/signup_screen.dart';
 import 'package:insta_clone/utils/colors.dart';
@@ -31,9 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
       _isloading = true;
     });
     String res = await AuthMethods().loginUser(
-        email: _emailcontroller.text, password: _passwordcontroller.text);
+        email: _emailcontroller.text, password: _passwordcontroller.text,);
     if (res == "success") {
       print(res);
+      Navigator.pushReplacement (context, MaterialPageRoute(builder: (context)=>ResponsiveLayout(
+        mobileScreenLayout: mobileScreenLayout(),
+         webScreenLayout: webScreenLayout(),
+       )));
+      showSnackBar("succesfully logged in", context);
       
     } else {
       showSnackBar(res, context);
