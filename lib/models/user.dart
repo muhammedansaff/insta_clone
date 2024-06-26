@@ -1,3 +1,4 @@
+
 class User{
   final String email;
   final String uid;
@@ -18,4 +19,5 @@ class User{
     "followers":followers
 
   };
+
 }

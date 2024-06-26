@@ -1,3 +1,4 @@
+
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -42,6 +43,15 @@ class AuthMethods {
         String photoUrl = await StorageMethods()
             .uploadImageToStorage("profilepics", file, false);
         print("email${cred.user!.email}");
+        //add user to database
+        model.User user = model.User(
+            username: username,
+            email: email,
+            uid: cred.user!.uid,
+            bio: bio,
+            photoUrl: photoUrl,
+            followers: [],
+            following: []);
         //add user to database
         model.User user = model.User(
             username: username,
