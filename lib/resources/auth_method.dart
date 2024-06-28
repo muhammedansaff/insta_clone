@@ -9,6 +9,11 @@ import 'package:insta_clone/resources/storage_methods.dart';
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  Future<model.User>getuserDetails()async{
+    User currentUser=_auth.currentUser!;
+    DocumentSnapshot snap= await _firestore.collection('users').doc(currentUser.uid).get();
+    return model.User.fromSnap(snap);
+  }
 //hello
   Future<String> signUpUser({
     required String email,
@@ -57,6 +62,7 @@ class AuthMethods {
         // Add user to database
         await _firestore.collection('users').doc(cred.user!.uid).set(user.tojason());
         res = "success";
+
       }
     } catch (err) {
       res = err.toString();
